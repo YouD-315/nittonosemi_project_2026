@@ -1,0 +1,4 @@
+repository "nittonosemi_project_2026/nittonosemi_project_2026@15669703759038@cloud"
+  path "/"
+    br "/main"
+    co "/main"
