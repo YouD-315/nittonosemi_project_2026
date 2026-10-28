@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
+    
     [SerializeField] CardObj cardObjPrefab;
     [SerializeField] Hand hand;
+    [SerializeField] List<CardData> cardDataList;
 
     List<CardObj> cards = new List<CardObj>();
 
@@ -14,10 +16,10 @@ public class Deck : MonoBehaviour
 {
     CardObj cardObj = Spawn();
 
-    CardType randomType =
-        (CardType)Random.Range(0, 3);
+    CardData randomData =
+    cardDataList[Random.Range(0, cardDataList.Count)];
 
-    cardObj.Setup(randomType);
+    cardObj.Setup(randomData);
 
     cardObj.gameObject.SetActive(false);
 

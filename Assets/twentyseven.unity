@@ -210,6 +210,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Deck
   cardObjPrefab: {fileID: 1968957749665876091, guid: 57d3b292421389940ae1c7b76a0c06da, type: 3}
   hand: {fileID: 1295398618}
+  cardDataList:
+  - {fileID: 11400000, guid: 9b5b37996ffe9d94c92f0451e07753ec, type: 2}
+  - {fileID: 11400000, guid: 24cd900aaf92f534cae278bc3a6fc0ec, type: 2}
+  - {fileID: 11400000, guid: 2b59955309b6c944eb785e744d72791a, type: 2}
 --- !u!1 &69567465
 GameObject:
   m_ObjectHideFlags: 0

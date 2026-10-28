@@ -9,7 +9,7 @@ public class ManaView : MonoBehaviour
 
     private void Start()
     {
-        battleSystem = FindFirstObjectByType<BattleSystem>();
+        battleSystem = FindAnyObjectByType<BattleSystem>();
     }
 
     private void Update()

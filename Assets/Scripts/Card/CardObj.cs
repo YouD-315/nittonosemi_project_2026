@@ -9,63 +9,43 @@ public class CardObj : MonoBehaviour, IPointerClickHandler
     [SerializeField] Image cardImage;
     [SerializeField] Text cardCost;
     [SerializeField] GameObject selectFrame;
-    [SerializeField] int cost;
-    [SerializeField] CardType cardType;
     
 
-[SerializeField] Sprite attackSprite;
-[SerializeField] Sprite healSprite;
-[SerializeField] Sprite guardSprite;
 
+public int Cost
+{
+    get { return cardData.cost; }
+}
 
 public CardType CardType
 {
-    get { return cardType; }
+    get { return cardData.cardType; }
 }
 
-    public int Cost
-    {
-    get { return cost; }
-    }
+public CardData Data
+{
+    get { return cardData; }
+}
 
     BattleSystem battleSystem;
 
     bool isSelected = false;
 
-   public void Setup(CardType type)
+   CardData cardData;
+
+public void Setup(CardData data)
 {
-    cardType = type;
+    cardData = data;
 
-    switch (type)
-    {
-        case CardType.Attack:
-            cardName.text = "攻撃";
-            cardDescription.text = "敵に3ダメージ";
-            cost = 1;
-            cardImage.sprite = attackSprite;
-            break;
-
-        case CardType.Heal:
-            cardName.text = "回復";
-            cardDescription.text = "HPを3回復";
-            cost = 2;
-            cardImage.sprite = healSprite;
-            break;
-
-        case CardType.Guard:
-            cardName.text = "防御";
-            cardDescription.text = "防御力+3";
-            cost = 1;
-            cardImage.sprite = guardSprite;
-            break;
-    }
-
-    cardCost.text = cost.ToString();
+    cardName.text = data.cardName;
+    cardDescription.text = data.description;
+    cardCost.text = data.cost.ToString();
+    cardImage.sprite = data.cardImage;
 }
 
     private void Start()
     {
-        battleSystem = FindFirstObjectByType<BattleSystem>();
+        battleSystem = FindAnyObjectByType<BattleSystem>();
 
         selectFrame.SetActive(false);
     }
@@ -74,13 +54,13 @@ public CardType CardType
 {
     if (!isSelected)
     {
-        if (battleSystem.CurrentMana < cost)
+        if (battleSystem.CurrentMana < Cost)
         {
             Debug.Log("マナ不足");
             return;
         }
 
-        battleSystem.CurrentMana -= cost;
+        battleSystem.CurrentMana -= Cost;
 
         battleSystem.SelectedCards.Add(this);
 
@@ -90,7 +70,7 @@ public CardType CardType
     }
     else
     {
-        battleSystem.CurrentMana += cost;
+        battleSystem.CurrentMana += Cost;
 
         battleSystem.SelectedCards.Remove(this);
 

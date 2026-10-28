@@ -6,7 +6,7 @@ public class TurnEndButton : MonoBehaviour
 
     private void Start()
     {
-        battleSystem = FindFirstObjectByType<BattleSystem>();
+        battleSystem = FindAnyObjectByType<BattleSystem>();
     }
 
     public void OnClickTurnEnd()

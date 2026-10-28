@@ -9,7 +9,7 @@ public class DeckView : MonoBehaviour
 
     void Start()
     {
-        battleSystem = FindFirstObjectByType<BattleSystem>();
+        battleSystem = FindAnyObjectByType<BattleSystem>();
     }
 
     void Update()
