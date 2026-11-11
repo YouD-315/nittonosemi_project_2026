@@ -210,6 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Deck
   cardObjPrefab: {fileID: 1968957749665876091, guid: 57d3b292421389940ae1c7b76a0c06da, type: 3}
   hand: {fileID: 1295398618}
+  boti: {fileID: 176812565}
   cardDataList:
   - {fileID: 11400000, guid: 9b5b37996ffe9d94c92f0451e07753ec, type: 2}
   - {fileID: 11400000, guid: 24cd900aaf92f534cae278bc3a6fc0ec, type: 2}
@@ -903,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2b1fd560d7ce04d9c66515f54c1ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  hp: 1
+  hp: 20
   maxMana: 1
   usableCards:
   - {fileID: 11400000, guid: 9b5b37996ffe9d94c92f0451e07753ec, type: 2}
