@@ -15,6 +15,7 @@ MonoBehaviour:
   cardName: "\u9632\u5FA1"
   description: "\u30B7\u30FC\u30EB\u30C9\u30925\u5F97\u308B"
   cost: 1
+  speed: 10
   cardImage: {fileID: 2389193319765324094, guid: 7c8d1c3c1f28c384b8e67f3c1cd2caaf, type: 3}
   cardType: 2
   effects:

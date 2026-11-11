@@ -12,6 +12,9 @@ public class BattleSystem : MonoBehaviour
 
     BattleInitialHandState initialHandState;
 
+    BattleWinState winState;
+    BattleLoseState loseState;
+
 
 
     public BattlePlayerDrawState PlayerDrawState { get { return playerDrawState; } }
@@ -52,6 +55,17 @@ public BattleResolveState ResolveState
 {
     get { return resolveState; }
 }
+public BattleWinState WinState
+    {
+        get { return winState; }
+    }
+
+    public BattleLoseState LoseState
+    {
+        get { return loseState; }
+    }
+
+
 
     public BattleInitialHandState InitialHandState
 {
@@ -90,6 +104,8 @@ public int MaxMana
     playerDrawState = new BattlePlayerDrawState(this);
     cardSelectedState = new BattleCardSelected(this);
     resolveState = new BattleResolveState(this);
+    winState = new BattleWinState(this);
+        loseState = new BattleLoseState(this);
 
     ChangeState(setupState);
 }

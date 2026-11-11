@@ -13,7 +13,7 @@ public class DamageEffect : CardEffect
             return;
         }
 
-        target.Hp -= damageValue;
-        Debug.Log($"{user.name} が {target.name} に {damageValue} ダメージを与えた！（残りHP: {target.Hp}）");
+        // ▼ ここを変更：直接 target.Hp を引くのをやめ、TakeDamageに任せる
+        target.TakeDamage(damageValue);
     }
 }
