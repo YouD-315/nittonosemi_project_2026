@@ -15,6 +15,8 @@ public class BattleSystem : MonoBehaviour
     BattleWinState winState;
     BattleLoseState loseState;
 
+    
+
 
 
     public BattlePlayerDrawState PlayerDrawState { get { return playerDrawState; } }

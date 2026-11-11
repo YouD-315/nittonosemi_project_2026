@@ -1,3 +1,4 @@
+using System.Collections; // ▼ コルーチン（IEnumerator）を使うために追加
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,43 +30,62 @@ public class BattleResolveState : BattleStateBase
             actionList.Add(enemyAction);
         }
 
-        // 速度（Speed）降順で並べ替え
+        // 3. 速度順に降順ソート
         actionList.Sort((a, b) => b.CardData.Speed.CompareTo(a.CardData.Speed));
 
-        // 3. 行動リストを順番に実行
+        // 4. MonoBehaviourであるBattleSystem(Owner)にコルーチンを実行させる
+        Owner.StartCoroutine(ResolveRoutine(actionList));
+    }
+
+    /// <summary>
+    /// カードを1枚ずつ順番に発動し、合間にウェイトを挟む演出コルーチン
+    /// </summary>
+    private IEnumerator ResolveRoutine(List<CardAction> actionList)
+    {
         foreach (CardAction action in actionList)
         {
+            // 誰のカードが発動したかログ出力
+            Debug.Log($"【発動】{action.User.name} の {action.CardData.cardName}！");
+
+            // カード効果の実行
             foreach (CardEffect effect in action.CardData.Effects)
             {
                 effect.Execute(action.User, action.Target, Owner);
             }
 
+            // プレイヤーのカードなら墓地へ送る
             if (action.CardObj != null)
             {
                 action.CardObj.SendToBoti(Owner.Boti.transform);
             }
 
-            // ▼ ここを追加：1行動ごとに勝敗判定を行う
+            // ▼ ここが演出ウェイト：1秒間待機する
+            yield return new WaitForSeconds(1.0f);
+
+            // 勝敗判定チェック
             if (Owner.Enemy.Hp <= 0)
             {
-                Debug.Log("敵のHPが0になりました。");
-                Owner.SelectedCards.Clear();
+                CleanupAndFinish();
                 Owner.ChangeState(Owner.WinState);
-                return; // 残りのカード処理を中断して抜ける
+                yield break; // コルーチンをここで即座に終了
             }
 
             if (Owner.Player.Hp <= 0)
             {
-                Debug.Log("プレイヤーのHPが0になりました。");
-                Owner.SelectedCards.Clear();
+                CleanupAndFinish();
                 Owner.ChangeState(Owner.LoseState);
-                return; // 残りのカード処理を中断して抜ける
+                yield break; // コルーチンをここで即座に終了
             }
         }
 
-        // 4. 決着がつかなかった場合のみ次のターンへ進む
+        // 全カードの処理が終わり、決着がつかなければ次ターンへ
+        CleanupAndFinish();
+        Owner.ChangeState(Owner.PlayerDrawState);
+    }
+
+    private void CleanupAndFinish()
+    {
         Owner.SelectedCards.Clear();
         Owner.CurrentMana = Owner.MaxMana;
-        Owner.ChangeState(Owner.PlayerDrawState);
     }
 }
