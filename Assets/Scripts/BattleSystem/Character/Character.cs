@@ -5,10 +5,25 @@ public class Character : MonoBehaviour
     [SerializeField] int hp = 20;
     int guard = 0;
 
+    // ▼ HPバー用：最大HP（Inspectorで設定したhpの初期値を最大値として記憶する）
+    int maxHp;
+
+    public int MaxHp
+    {
+        get { return maxHp; }
+    }
+
+    void Awake()
+    {
+        maxHp = hp;
+    }
+    // ▲ ここまで追加
+
     public int Hp
     {
         get { return hp; }
-        set { hp = value; }
+        // 0未満・最大HP超えにならないように制限（回復しすぎ防止）
+        set { hp = Mathf.Clamp(value, 0, maxHp); }
     }
 
     public int Guard
