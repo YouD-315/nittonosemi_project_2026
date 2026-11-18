@@ -5,10 +5,11 @@ public class Boti : MonoBehaviour
 {
     /// <summary>
     /// 墓地にあるカードの枚数を返す
+    /// （BotiImageなどカード以外の子オブジェクトは数えない）
     /// </summary>
     public int CardCount
     {
-        get { return transform.childCount; }
+        get { return GetComponentsInChildren<CardObj>(true).Length; }
     }
 
     /// <summary>
