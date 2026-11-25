@@ -211,11 +211,7 @@ MonoBehaviour:
   cardObjPrefab: {fileID: 1968957749665876091, guid: 57d3b292421389940ae1c7b76a0c06da, type: 3}
   hand: {fileID: 1295398618}
   boti: {fileID: 176812565}
-  cardDataList:
-  - {fileID: 11400000, guid: 9b5b37996ffe9d94c92f0451e07753ec, type: 2}
-  - {fileID: 11400000, guid: 24cd900aaf92f534cae278bc3a6fc0ec, type: 2}
-  - {fileID: 11400000, guid: 2b59955309b6c944eb785e744d72791a, type: 2}
-  - {fileID: 11400000, guid: aeb9687c4bc1252458db4f39f99ca0ec, type: 2}
+  startingDeck: {fileID: 11400000, guid: 9437ce118029fb547911f349c0ad6f6a, type: 2}
 --- !u!1 &69567465
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,12 +978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   hp: 20
-  maxMana: 1
-  usableCards:
-  - {fileID: 11400000, guid: 9b5b37996ffe9d94c92f0451e07753ec, type: 2}
-  - {fileID: 11400000, guid: 24cd900aaf92f534cae278bc3a6fc0ec, type: 2}
-  - {fileID: 11400000, guid: 2b59955309b6c944eb785e744d72791a, type: 2}
-  - {fileID: 11400000, guid: aeb9687c4bc1252458db4f39f99ca0ec, type: 2}
+  enemyData: {fileID: 11400000, guid: 87de6e16684780f4ab938a7b67d08689, type: 2}
 --- !u!1 &870123265
 GameObject:
   m_ObjectHideFlags: 0

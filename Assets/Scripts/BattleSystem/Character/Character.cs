@@ -13,9 +13,19 @@ public class Character : MonoBehaviour
         get { return maxHp; }
     }
 
-    void Awake()
+    // protected virtual：子クラス（Enemyなど）が override して処理を足せるようにする
+    protected virtual void Awake()
     {
         maxHp = hp;
+    }
+
+    /// <summary>
+    /// 最大HPを設定し、現在HPも満タンにする（EnemyDataなど外部データから初期化する用）
+    /// </summary>
+    protected void SetMaxHp(int value)
+    {
+        maxHp = value;
+        hp = value;
     }
     // ▲ ここまで追加
 

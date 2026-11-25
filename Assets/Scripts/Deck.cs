@@ -6,25 +6,45 @@ public class Deck : MonoBehaviour
     [SerializeField] CardObj cardObjPrefab;
     [SerializeField] Hand hand;
     [SerializeField] Boti boti; // ▼ 追加：墓地の参照
-    [SerializeField] List<CardData> cardDataList;
+    [SerializeField] DeckData startingDeck; // ▼ 変更：ランダム20枚ではなく、このデッキ構成を使う
 
     List<CardObj> cards = new List<CardObj>();
 
-    void Start()
+    // Start ではなく Awake：BattleSystem.Start() で手札を配るより前に、必ず山札を作り終えておくため
+    void Awake()
     {
-        for (int i = 0; i < 20; i++)
+        // 冒険中なら、RunDataにある「今のデッキ」を使う
+        if (RunData.IsActive)
+        {
+            SetupDeck(RunData.Deck);
+            return;
+        }
+
+        // ホームを通らずに戦闘シーンを直接再生したとき用（テスト用の初期デッキ）
+        if (startingDeck == null)
+        {
+            Debug.LogWarning("Deck に Starting Deck が設定されていません");
+            return;
+        }
+
+        SetupDeck(startingDeck.ToCardList());
+    }
+
+    /// <summary>
+    /// 渡されたカードリスト（1枚1要素）から山札を作り、シャッフルする。
+    /// 今後、デッキ編成画面で組んだデッキもここに渡す予定。
+    /// </summary>
+    public void SetupDeck(List<CardData> deckList)
+    {
+        foreach (CardData data in deckList)
         {
             CardObj cardObj = Spawn();
-
-            CardData randomData =
-                cardDataList[Random.Range(0, cardDataList.Count)];
-
-            cardObj.Setup(randomData);
-
+            cardObj.Setup(data);
             cardObj.gameObject.SetActive(false);
-
             cards.Add(cardObj);
         }
+
+        Shuffle();
     }
 
     public void DrawToHand()
@@ -75,7 +95,14 @@ public class Deck : MonoBehaviour
             cards.Add(card);
         }
 
-        // Fisher-Yatesアルゴリズムによるリストのランダムシャッフル
+        Shuffle();
+    }
+
+    /// <summary>
+    /// Fisher-Yatesアルゴリズムによる山札のランダムシャッフル
+    /// </summary>
+    private void Shuffle()
+    {
         for (int i = cards.Count - 1; i > 0; i--)
         {
             int randomIndex = Random.Range(0, i + 1);
